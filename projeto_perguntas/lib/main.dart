@@ -5,8 +5,25 @@ import './resposta.dart';
 main() => runApp(PerguntaApp());
 
 class _PerguntaAppState extends State<PerguntaApp> {
+  //Indice da pergunta
   var _perguntaSelecionada = 0;
+  //Map - perguntas e respostas
+  final List<Map<String, Object>> _perguntas = const [
+    {
+      'texto': 'Qual é a sua cor favorita?',
+      'respostas': ['Preto', 'Vermelho', 'Verde', 'branco'],
+    },
+    {
+      'texto': 'Qual é o seu animal favorito?',
+      'respostas': ['Coelho', 'Cobra', 'Elefante', 'Leão'],
+    },
+    {
+      'texto': 'Qual é o seu professor Favorito?',
+      'respostas': ['Maria', 'João', 'Léo', 'Pedro'],
+    }
+  ];
 
+  //Aumenta o indice
   void _responder() {
     setState(() {
       _perguntaSelecionada++;
@@ -16,26 +33,9 @@ class _PerguntaAppState extends State<PerguntaApp> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, Object>> perguntas = [
-      {
-        'texto': 'Qual é a sua cor favorita?',
-        'respostas': ['Preto', 'Vermelho', 'Verde', 'branco'],
-      },
-      {
-        'texto': 'Qual é o seu animal favorito?',
-        'respostas': ['Coelho', 'Cobra', 'Elefante', 'Leão'],
-      },
-      {
-        'texto': 'Qual é o seu professor Favorito?',
-        'respostas': ['Maria', 'João', 'Léo', 'Pedro'],
-      }
-    ];
+    //List de String pergando as respostas de acordo com indice
+    List<String> respostas = _perguntas[_perguntaSelecionada]['respostas'];
 
-    List<Widget> respostas = [];
-
-    for (var textoResp in perguntas[_perguntaSelecionada]['respostas']) {
-      respostas.add(Resposta(textoResp, _responder));
-    }
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -43,8 +43,9 @@ class _PerguntaAppState extends State<PerguntaApp> {
         ),
         body: Column(
           children: <Widget>[
-            Questao(perguntas[_perguntaSelecionada]['texto']),
-            ...respostas,
+            Questao(_perguntas[_perguntaSelecionada]['texto']),
+            //pega a lista de String e o map converte em lista de widget , transformando o resultado do map em list
+            ...respostas.map((t) => Resposta(t, _responder)).toList(),
           ],
         ),
       ),
