@@ -39,6 +39,12 @@ class _PerguntaAppState extends State<PerguntaApp> {
     }
   }
 
+  //reiniciar o app
+  void _reiniciarQuestionario() {
+    setState(() {
+      _perguntaSelecionada = 0;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     //List de String pergando as respostas de acordo com indice
@@ -54,7 +60,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
                 perguntaSelecionada: _perguntaSelecionada,
                 quandoResponder: _responder,
               )
-            : Resultado(),
+            : Resultado(_reiniciarQuestionario),
       ),
     );
   }

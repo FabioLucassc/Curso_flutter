@@ -21,9 +21,11 @@ class Questionario extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     List<String> respostas = temPerguntaSelecionada
         ? perguntas[perguntaSelecionada]['respostas']
         : null;
+        
     return Column(
       children: <Widget>[
         Questao(perguntas[perguntaSelecionada]['texto']),
